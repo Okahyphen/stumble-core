@@ -1,0 +1,19 @@
+{
+  "name": "stumble-core",
+  "version": "0.0.1",
+  "description": "StumbleCore.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Okahyphen/stumble-core.git"
+  },
+  "author": "Colin 'Oka' Hall-Coates <yo@oka.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Okahyphen/stumble-core/issues"
+  },
+  "homepage": "https://github.com/Okahyphen/stumble-core#readme"
+}
