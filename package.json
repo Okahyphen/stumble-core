@@ -1,10 +1,11 @@
 {
   "name": "stumble-core",
   "version": "0.0.1",
-  "description": "StumbleCore.",
+  "description": "StumbleCore - extension loader.",
   "main": "lib/StumbleCore",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=5.0.0",
+    "npm": ">=3.0.0"
   },
   "repository": {
     "type": "git",
