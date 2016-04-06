@@ -60,7 +60,7 @@ The `use` method loads *extension*-like objects, transforming them into Extensio
 
 The `extension` argument may be a single *extension*-like object, or an array of *extension*-like objects. The `pending` and `index` arguments **should** be omitted from any outside call to `use`. These arguments are used internally, when the `use` method employs a recursive strategy to attempt loading missing extension `.needs`.
 
-See: [Extensions](#Extensions)
+See: [Extensions](#extensions)
 
 A completely contrived example of loading an *extension*-like object:
 
@@ -120,7 +120,7 @@ The `define` method loads *command-like* objects, transforming them into Command
 
 The `command` argument may be a single *command*-like object, or an array of *command*-like objects.
 
-See: [Commands](#Commands)
+See: [Commands](#commands)
 
 A simple example:
 
