@@ -10,7 +10,7 @@ It's slightly tailored towards Stumble's use cases, but generic enough that othe
 
 This module is written in a mix of Node.js style ES5, and ES6. It is intended for use in modern Node `5.0.0` and newer environments.
 
-While the module does aim for good performance, its intended use case is to be a front heavy loader for a long-running application, so it takes some liberties in making sure the structure it provides is sound, and that its API is simple.
+While the module does aim for good performance, its intended use case is to be a front heavy loader for a long-running application, so it takes some liberties in making sure the structure it provides is sound, with regards to certain levels of type checking and object translation, and that its API is simple.
 
 ## Usage
 
@@ -56,9 +56,11 @@ use (
    )
 ```
 
-The `use` method loads *extension*-like objects, transforming them into Extension objects, and placing these new objects in the `.extensions` Map instance property.
+The `use` method loads *extension*-like objects, translating them into Extension objects, and placing these new objects in the `.extensions` Map instance property.
 
 The `extension` argument may be a single *extension*-like object, or an array of *extension*-like objects. The `pending` and `index` arguments **should** be omitted from any outside call to `use`. These arguments are used internally, when the `use` method employs a recursive strategy to attempt loading missing extension `.needs`.
+
+`use` returns the instance of `StumbleCore` for chaining.
 
 See: [Extensions](#extensions)
 
@@ -93,9 +95,9 @@ The `.exec` function is passed a `roll` as its second argument. The `roll` is ei
 
 The contextual `this` of the `.exec` function is set as the calling instance of `StumbleCore`.
 
-`execute` returns the result of the `.exec` function.
+`execute` returns the result of the `.exec` function, hold for the following exception:
 
-If an extension identified by `handle` is not present, or is present but has no `.exec` function, `execute` simply returns `null`. This is to allow for NOP like behaviour from optional `.hooks`.
+* If an extension identified by `handle` is not present, or is present but has no `.exec` function, `execute` simply returns `null`. This is to allow for NOP like behaviour from optional `.hooks`.
 
 A short example:
 
@@ -107,6 +109,8 @@ core.use({
   }
 });
 
+...
+
 core.execute('logger', { prop: 'Hello, world!' });
 ```
 
@@ -116,9 +120,11 @@ core.execute('logger', { prop: 'Hello, world!' });
 define (command :: Object|Array<Object>)
 ```
 
-The `define` method loads *command-like* objects, transforming them into Command objects, and placing these new objects in the `.commands` Map instance property.
+The `define` method loads *command-like* objects, translating them into Command objects, and placing these new objects in the `.commands` Map instance property.
 
 The `command` argument may be a single *command*-like object, or an array of *command*-like objects.
+
+`define` returns the instance of `StumbleCore` for chaining.
 
 See: [Commands](#commands)
 
@@ -199,13 +205,13 @@ The `.exec` property is the function executed by the `execute` instance method.
 function executable (data, roll) { ... }
 ```
 
-#### `.term :: Function`
-
-An optional property, intended for use as a terminating function. Since `StumbleCore` does not actually _unload_ extensions, this is not used internally in any way. However, an extension unloader could be implemented _as_ an extension, or subclass feature set, and may make use of this function.
-
 #### `.init :: Function`
 
 Extension-to-be objects may also contain an `.init` property. This function is invoked during the loading of the extension (but before the extension is actually set in stone). The function is passed the `StumbleCore` instance as its first argument, and also sets the instance as the contextual `this` of the function.
+
+#### `.term :: Function`
+
+An optional property, and the counter to `.init`, intended for use as a terminating function. Since `StumbleCore` does not actually _unload_ extensions, this is not used internally in any way. However, an extension unloader could be implemented _as_ an extension, or subclass feature set, and may make use of this function.
 
 The `.init` function is discarded from the final extension object.
 
