@@ -40,6 +40,8 @@ class MyApp extends StumbleCore { ... }
 
 ### Properties
 
+`aliases :: Map` - Holds handle aliases, mapped against their true `handle`.
+
 `commands :: Map` - Holds loaded commands, referenced by their `handle`.
 
 `extensions :: Map` - Holds loaded extensions, referenced by their `handle`.
@@ -229,7 +231,7 @@ Each command in the `.commands` array is mapped to its `.handle`, and the result
 
 ### Commands
 
-Commands are miniature extensions, intended to be exposed to a end-user through some means. They are defined with the `define` method, and invoked with the `invoke` method.
+Commands are miniature extensions, intended to be exposed to an end-user through some means. They are defined with the `define` method, and invoked with the `invoke` method.
 
 Commands are created from shallowly copying the properties of an existing object.
 
@@ -244,6 +246,10 @@ Command handles can not contain whitespace, and may not be duplicated. Everythin
 #### `.exec :: Function`
 
 The executable block used by the `invoke` method. It is required.
+
+#### `.aliases :: Array<String>`
+
+An array of handles to use as aliases for the command. Same rules as `.handle` apply to each.
 
 #### `.info :: Function`
 
